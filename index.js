@@ -27,7 +27,7 @@ cron.schedule("*/5 * * * *", async () => {
   );
 });
 
-app.get('/home',async(req,res)=>{
+app.get('/',async(req,res)=>{
     res.send('home page');
 });
 app.post("/genrateOTP", async (req, res) => {
