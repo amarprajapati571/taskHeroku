@@ -27,6 +27,15 @@ cron.schedule("*/5 * * * *", async () => {
   );
 });
 
+app.post('/add-user',async(req,res)=>{
+      let {name,phone} = req.body;
+      const user=new Users({
+        name:name,
+        phone:phone
+    });
+    const data= await user.save();
+    res.send('add students');
+});
 app.get('/',async(req,res)=>{
     res.send('home page');
 });
