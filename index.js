@@ -27,6 +27,9 @@ cron.schedule("*/5 * * * *", async () => {
   );
 });
 
+app.get('/home',async(req,res)=>{
+    res.send('home page');
+});
 app.post("/genrateOTP", async (req, res) => {
   let phone = req.body.phone;
   const data = await Users.findOne({ phone })
