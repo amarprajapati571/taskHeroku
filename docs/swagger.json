@@ -1,0 +1,257 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Task app",
+        "description": "Task app"
+    },
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/genrateOTP": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Genrate OTP for login",
+                "description": "Genrate OTP for login",
+                "operationId": "genrateOTP",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/HeaderVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/HeaderLanguage"
+                    },
+                    {
+                        "$ref": "#/parameters/HeaderPlatform"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/genrateOTP"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Genrate OTP",
+                        "schema": {
+                            "$ref": "#/definitions/responsesOk"
+                        }
+                    },
+                    "500": {
+                        "description": "Unexpected error.",
+                        "schema": {
+                            "$ref": "#/definitions/responsesError"
+                        }
+                    }
+                }
+            }
+        },
+        "/log-in": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Log in system",
+                "description": "Log in system",
+                "operationId": "log-in",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/HeaderVersion"
+                    },
+                    {
+                        "$ref": "#/parameters/HeaderLanguage"
+                    },
+                    {
+                        "$ref": "#/parameters/HeaderPlatform"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login",
+                        "schema": {
+                            "$ref": "#/definitions/responsesOk"
+                        }
+                    },
+                    "500": {
+                        "description": "Unexpected error.",
+                        "schema": {
+                            "$ref": "#/definitions/responsesError"
+                        }
+                    }
+                }
+            }
+        }
+        
+       
+},
+"definitions": {
+    
+    "login": {
+        "type": "object",
+        "required": [
+            "phone",
+            "otp"
+        ],
+        "properties": {
+            "phone": {
+                "type": "string",
+                "example": "9325874120"
+            },
+            "otp": {
+                "type": "string",
+                "example": "456987"
+            }
+          
+        }
+    },
+    "genrateOTP":{
+        "type": "object",
+        "required": [
+            "phone" 
+        ],
+        "properties": {
+            "phone": {
+                "type": "string",
+                "example": "9325874120"
+            }
+        }
+    },
+    
+    
+    "responsesOk": {
+        "type": "object",
+        "properties": {
+            "status": {
+                "type": "string"
+            },
+            "code": {
+                "type": "string"
+            },
+            "msg": {
+                "type": "string"
+            },
+            "data": {
+                "type": "object"
+            }
+        }
+    },
+    "responsesError": {
+        "type": "object",
+        "properties": {
+            "status": {
+                "type": "string"
+            },
+            "code": {
+                "type": "string"
+            },
+            "msg": {
+                "type": "string"
+            },
+            "error": {
+                "type": "object"
+            }
+        }
+    },
+    "loginResponseOk": {
+        "type": "object",
+        "properties": {
+            "status": {
+                "type": "string",
+                "example": "VERIFY_OTP",
+                "description": "If account not verified then rediect user to otp screen and enter OTP send to his phone number"
+            },
+            "code": {
+                "type": "string"
+            },
+            "msg": {
+                "type": "string"
+            },
+            "data": {
+                "type": "object"
+            }
+        }
+    }
+    
+},
+"parameters": {
+    "HeaderVersion": {
+        "name": "X-TaskApp-Version",
+        "in": "header",
+        "description": "X-TaskApp-Version",
+        "required": true,
+        "type": "string",
+        "default": "1.0.0"
+    },
+    "HeaderLanguage": {
+        "name": "Accept-Language",
+        "in": "header",
+        "description": "Accept-Language",
+        "required": true,
+        "type": "string",
+        "default": "en"
+    },
+    "HeaderPlatform": {
+        "name": "X-TaskApp-Platform",
+        "in": "header",
+        "description": "android or ios or web",
+        "required": true,
+        "type": "string",
+        "default": "android"
+    },
+    "HeaderAuth": {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Authorization",
+        "required": true,
+        "type": "string"
+    },
+    "HeaderOptionalAuth": {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Authorization",
+        "type": "string"
+    },
+    "HeaderCategory": {
+        "name": "category",
+        "in": "header",
+        "description": "category",
+        "required": true,
+        "type": "string"
+    }
+}
+}
+

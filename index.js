@@ -12,6 +12,24 @@ const { generateCode } = require("./lib");
 const Users = require("./models/User.model");
 const request = require("request");
 const cron = require("node-cron");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./docs/swagger.json');
+
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'static')));
+app.use(
+    '/docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, {
+        customfavIcon: '/fav32.png',
+        customSiteTitle: 'Task app',
+        authorizeBtn: true,
+        swaggerOptions: {
+            filter: true,
+            displayRequestDuration: true,
+        },
+    })
+);
 
 cron.schedule("*/5 * * * *", async () => {
   let dates = moment();
@@ -85,7 +103,6 @@ app.post("/genrateOTP", async (req, res) => {
     });
   }
 });
-
 app.post("/login", async (req, res) => {
   let { phone, otp } = req.body;
   let userData = await Users.findOne({ phone: phone });
